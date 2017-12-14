@@ -1,0 +1,10 @@
+<body>
+    <ul>
+     {% for file in files %}
+        <li><a href="{{ url_for('file',file_id=file.id)}} ">{{ file.title }}</a></li>
+        {% for tag in file.tags %}
+            <span> {{ tag }} </span>
+        {% end for %}
+     {% end for %}
+    </ul>
+</body>
