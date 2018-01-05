@@ -1,14 +1,17 @@
+from flask import url_for
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
 db = SQLAlchemy()
 
 class Base(db.Model):
 	__abstract__ = True
 	create_at = db.Column(db.DateTime, default=datetime.utcnow)
 	update_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-class User(Base,UserMixin):
+    
+class User(Base, UserMixin):
     __tablename__ = 'user'
 
     ROLE_USER = 10
@@ -17,7 +20,7 @@ class User(Base,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), unique=True, index=True, nullable=False)
     email = db.Column(db.String(64), unique=True, index=True, nullable=False)
-    _password = db.Column('_password', db.String(256), nullable=False)
+    _password = db.Column('password', db.String(256), nullable=False)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     job = db.Column(db.String(64))
     publish_courses = db.relationship('Course')

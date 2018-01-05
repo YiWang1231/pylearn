@@ -23,7 +23,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('logout success', 'success')
+    flash('退出成功', 'success')
     return redirect(url_for('.index'))
 
 @front.route('/register', methods=['GET', 'POST'])
@@ -31,7 +31,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         form.create_user()
-        flash('register success', 'success')
+        flash('注册成功', 'success')
         return redirect(url_for('.login'))
     return render_template('register.html', form=form)
 
