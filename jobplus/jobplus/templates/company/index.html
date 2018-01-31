@@ -1,0 +1,46 @@
+hh{% extends "base.html" %}
+{% from "macros.html" import render_pagination %}
+{% block title %}
+Company
+{% endblock %}
+{% block body %}
+<div class="page-header">
+	<h1>企业列表</h1>
+</div>
+
+<div class="company-list">
+	{% for company in pagination.items %}
+	<div class="row horizon">
+		<div class="col-md-9">
+			<div class="media">
+				<div class="media-left">
+					<a href="{{ url_for('company.company_detail', company_id=company.id)}}">
+						<img width="80" height="80" alt="logo" src="{{ company.logo_url }}">
+					</a>
+				</div>
+				<div class="media-body">
+					<h4><a href="{{ url_for('company.company_detail', company_id=company.id)}}"><p class="company-name">{{ company.name }}</p></a></h4>
+					<a href="{{ company.website }}">{{ company.website }}</a>
+					<p>{{ company.Slogan }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<ul style="list-style: none;">
+				<li>
+					<span class="glyphicon glyphicon-user"></span>
+					<a href="#">{{ job_num[company.id]}}</a>
+					<span>职位在招</span>
+				</li>
+				<li>
+					<span class="glyphicon glyphicon-globe"></span>Beijing
+				</li>
+			</ul>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<div>
+{{ render_pagination(pagination, 'company.index') }}
+</div>
+{% endblock %}

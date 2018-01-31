@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+个人中心
+{% endblock %}
+{% block body %}
+<div class="row">
+	<div class="col-md-3">
+		<h4>管理</h4>
+		<div class="list-group">
+			<a href="{{ url_for('user.profile') }}" class="list-group-item">个人信息</a>
+			<a href="{{ url_for('user.resume') }}" class="list-group-item">简历管理</a>
+			<a href="{{ url_for('user.application') }}" class="list-group-item">申请管理</a>
+		</div>
+	</div>
+	<div class="col-md-9">
+		{% block admin %}
+		{% endblock %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+Company-{{ company.name }}
+{% endblock %}
+{% block body %}
+<div class="row">
+	<div class="col-md-2">
+		<img width="120" width="120" alt="logo" src="{{ company.logo_url }}">
+	</div>
+	<div class="col-md-10">
+		<h3>{{ company.name }}</h3>
+		<p>{{ company.Slogan }}</p>
+		<a href="{{ company.website }}"></a>
+	</div>
+</div>
+<ul class="nav nav-tabs padding-top">
+	<li class="active"><a href="{{ url_for('company.company_detail', company_id=company.id) }}">公司信息</a></li>
+	<li><a href="{{ url_for('company.company_jobs', company_id=company.id) }}">招聘职位</a></li>
+</ul>
+
+<div class="page-header">
+	<h4><b>关于我们</b></h4>
+</div>
+<p>{{ company.description }}</p>
+{% endblock %}

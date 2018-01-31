@@ -1,0 +1,12 @@
+{% extends "user/index.html" %}
+{% from "macros.html" import render_form %}
+{% block admin %}
+<div class="page-header">
+	<h4>简历上传</h4>
+</div>
+<p>
+	<b>我的简历</b>
+	<a href="/static/resumes/%E7%8E%8B%E7%BE%BD.pdf">我的简历</a>
+</p>
+<div class="form-profile">{{ render_form(form, url_for('user.resume'), upload_file=True) }}</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+Company-{{ company.name }}
+{% endblock %}
+{% block body %}
+<div class="row">
+	<div class="col-md-2">
+		<img width="120" width="120" alt="logo" src="{{ company.logo_url }}">
+	</div>
+	<div class="col-md-10">
+		<h3>{{ company.name }}</h3>
+		<p>{{ company.Slogan }}</p>
+		<a href="{{ company.website }}"></a>
+	</div>
+</div>
+<ul class="nav nav-tabs padding-top">
+	<li><a href="{{ url_for('company.company_detail', company_id=company.id) }}">公司信息</a></li>
+	<li class="active"><a href="{{ url_for('company.company_jobs', company_id=company.id) }}">招聘职位</a></li>
+</ul>
+{% for job in jobs %}
+<div class="row horizon">
+	<div class="col-md-9">
+		<a href="{{ url_for('job.job_detail', job_id=job.id) }}">
+			<h4 class="jobname">{{ job.name }}</h4>
+		<a/>
+		<p style="color: #ff8000;">{{ job.salary_low }}-{{ job.salary_high }}</p>
+		<p>{{ job.exp_request }} {{ job.degree_request }}</p>
+		<p>{{ job.address }}</p>
+	</div>
+	<div class="col-md-3 hidden-xs">
+		<p style="text-align: right; padding-top: 20px;">{{ job.create_at | timesince }}</p>	
+	</div>
+</div>
+{% endfor %}
+{% endblock %}

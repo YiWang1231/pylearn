@@ -1,0 +1,49 @@
+{% extends "company/admin.html" %}
+{% from "macros.html" import render_pagination %}
+{% block admin %}
+<div class="page-header">
+<h3>职位申请</h3>
+</div>
+<div style="text-align: center; padding-bottom: 15px;">
+    <div class="btn-group" role="group" aria-label="button group">
+        <a type="button" class="btn btn-default" href="{{ url_for('company.waiting') }}">待处理</a>
+        <a type="button" class="btn btn-default" href="{{ url_for('company.accept') }}">面试</a>
+        <a type="button" class="btn btn-default" href="{{ url_for('company.reject') }}">拒绝</a>
+    </div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>职位名称</th>
+            <th>地点</th>
+            <th>申请人</th>
+            <th>状态</th>
+            <th>更新日期</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for delivery in pagination.items %}
+        <tr>
+            <td>{{ delivery.job_id }}</td>
+            <td>{{ delivery.job_name }}</td>
+            <td>{{ delivery.job_address }}</td>
+            <td>{{ delivery.user_realname }}</td>
+            <td>面试</td>
+            <td>{{ delivery.create_at }}</td>
+            <td>
+                <div class="dropdown">
+                    <p id="dropdownmenu1" data-toggle="dropdown"><span class="caret"></span></p>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownmenu1">
+                        <li><a href="{{ url_for('company.delivery_resume', delivery_id=delivery.id) }}">查看简历</a></li>
+                        <li><a href="{{ url_for('company.delivery_reject', delivery_id=delivery.id) }}">拒绝</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{{ render_pagination(pagination, 'company.accept') }}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "user/index.html" %}
+
+{% block admin %}
+<div class="page-header">投递管理</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>职位名称</th>
+            <th>公司</th>
+            <th>状态</th>
+            <th>申请日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td><a href="{{ url_for('job.job_detail', job_id=job.id) }}">{{ job.name }}</a></td>
+            <td>{{ job.company.name }}</td>
+            {% for delivery in deliveries %}
+                {% if delivery.job_id == job.id %}
+                    {% if delivery.status == 1 %}
+                    <td>申请中</td>
+                    <td>{{ delivery.create_at }}</td>
+                    {% elif delivery.status == 2 %}
+                    <td>被拒绝</td>
+                    <td>{{ delivery.create_at }}</td>
+                    {% else %}
+                    <td>面试</td>
+                    <td>{{ delivery.create_at }}</td>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

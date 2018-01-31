@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+Job-{{ job.name }}
+{% endblock %}
+
+{% block body %}
+<div class="horizon">
+	<div class="row">
+		<div class="col-md-9">
+			<div class="media">
+				<div class="media-left">
+					<a href="#">
+						<img width="120" height="120" alt="logo" src="{{ job.company.logo_url }}">
+					</a>
+				</div>
+				<div class="media-body">
+					<h3>{{ job.company.name }}-{{ job.name }}-{{ job.address }}</h3>
+					<p>{{ job.exp_request }}  {{ job.degree_request }}</p>
+					<p style="color: #ff8000">{{ job.salary_low }}-{{ job.salary_high }} </p>
+				</div>
+			</div>
+		</div>
+        {% if current_user.is_user %}
+		<div class="col-md-3" style="padding-top: 15px;">
+			<!-- if not db.session.query(Job).join(user_job).filter(Job.id==1, user_job.c.user_id==1)-->
+
+			{% if job not in current_user.collect_jobs %}
+			<a href="{{ url_for('job.apply', job_id=job.id) }}" type="button" class="btn btn-success">投递</a>
+			{% else %}
+			<a href="#" type="button" class="btn btn-default disabled">已投递</a>
+			{% endif %}
+			<span class="glyphicon glyphicon-hand-left" style="padding-left: 10px;"></span>
+			<span class="text-muted">投递简历</span>
+		</div>
+        {% endif %}
+	</div>
+</div>
+<div>
+	<h3>职位描述</h3>
+	<ul>
+		{% for tag in tags %}
+		<li>{{ tag }}</li>
+		{% endfor %}
+	</ul>
+	<h3>职位要求</h3>
+	<ul>
+		{% for request in job_request %}
+		<li>{{ request }}</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}
